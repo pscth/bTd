@@ -1,0 +1,1 @@
+Todas las escenas del juego separadas por niveles en caso de que sea necesario

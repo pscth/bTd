@@ -1,0 +1,1 @@
+Aqui se ponen todas las texturas agenas a los modelos 3D (UI, textos, menus...)
