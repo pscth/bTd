@@ -1,1 +1,3 @@
-Aqui todos los objetos que se pueden instanciar en la escena
+Aqui todos los objetos que se pueden instanciar en la escena.
+
+Formato:	prefabNombreObjeto
