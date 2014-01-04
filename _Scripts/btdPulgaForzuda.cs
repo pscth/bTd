@@ -29,9 +29,13 @@ public class btdPulgaForzuda : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Ground")
+        if (other.tag == "ground")
         {
             jumping = false;
+        }
+        else if (other.tag == "gorge")
+        {
+            Debug.Log("In " + other.tag);
         }
     }
 }
