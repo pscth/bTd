@@ -118,11 +118,11 @@ public class btdPulgaElastic : MonoBehaviour
 
     void OnTriggerStay(Collider other)
     {
-        if (other.tag == "gorgeLeft" && state == btdConstants.PULGA_WAIT)
+        if (other.tag == "gorgeLeft" && (state == btdConstants.PULGA_WAIT || state == btdConstants.PULGA_ELASTIC_STRETCH))
         {
             gorgeDirection = btdConstants.GORGE_LEFT;
         }
-        else if (other.tag == "gorgeRight" && state == btdConstants.PULGA_WAIT)
+        else if (other.tag == "gorgeRight" && (state == btdConstants.PULGA_WAIT || state == btdConstants.PULGA_ELASTIC_STRETCH))
         {
             gorgeDirection = btdConstants.GORGE_RIGHT;
         }
