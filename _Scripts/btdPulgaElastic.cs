@@ -72,6 +72,7 @@ public class btdPulgaElastic : MonoBehaviour
                 {
                     GetComponent<BoxCollider>().size -= new Vector3(gorgeDimension * 0.1f, 0.0f, 0.0f);
                     GetComponent<BoxCollider>().center -= new Vector3(gorgeDimension * 0.05f, 0.0f, 0.0f);
+                    transform.Translate(new Vector3(gorgeDimension * 0.1f, 0.0f, 0.0f));
                     if (GetComponent<BoxCollider>().center == new Vector3(0.0f, 0.0f, 0.0f))
                     {
                         state = btdConstants.PULGA_ELASTIC_STRETCH;
@@ -82,6 +83,7 @@ public class btdPulgaElastic : MonoBehaviour
                 {
                     GetComponent<BoxCollider>().size -= new Vector3(gorgeDimension * 0.1f, 0.0f, 0.0f);
                     GetComponent<BoxCollider>().center += new Vector3(gorgeDimension * 0.05f, 0.0f, 0.0f);
+                    transform.Translate(new Vector3(-gorgeDimension * 0.1f, 0.0f, 0.0f));
                     if (GetComponent<BoxCollider>().center == new Vector3(0.0f, 0.0f, 0.0f))
                     {
                         state = btdConstants.PULGA_ELASTIC_STRETCH;
