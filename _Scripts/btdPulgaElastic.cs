@@ -8,22 +8,25 @@ public class btdPulgaElastic : MonoBehaviour
 
     private float gorgeDimension;
     private int gorgeDirection;
+    public GameObject pullUp;
 
-    private int state;
+    public int state;
     private int selected;
 
     // Use this for initialization
     void Start()
     {
-        movementSpeed = 5.0f;
-        jumpHight = 25.0f;
-        rigidbody.mass = 0.1f;
+        movementSpeed = btdConstants.MOVE_SPEED;
+        jumpHight = btdConstants.JUMP_HIGHT;
+        rigidbody.mass = btdConstants.PULGA_MASS;
         selected = btdConstants.PULGA_UNSELECTED;
+        state = btdConstants.PULGA_WAIT;
     }
 
     // Update is called once per frame
     void Update()
     {
+        pullUp.transform.position = transform.position;
         if (selected == btdConstants.PULGA_SELECTED)
         {
             if (state != btdConstants.PULGA_ELASTIC_STRETCH_ON)
@@ -43,18 +46,17 @@ public class btdPulgaElastic : MonoBehaviour
             }
             else if (state == btdConstants.PULGA_ELASTIC_TO_STRETCH_ON)
             {
-                if (gorgeDirection == btdConstants.GORGE_LEFT)
-                {
-                    GetComponent<BoxCollider>().size += new Vector3(gorgeDimension * 0.1f, 0.0f, 0.0f);
-                    GetComponent<BoxCollider>().center += new Vector3(gorgeDimension * 0.05f, 0.0f, 0.0f);
-                }
-                else if (gorgeDirection == btdConstants.GORGE_RIGHT)
-                {
-                    GetComponent<BoxCollider>().size += new Vector3(gorgeDimension * 0.1f, 0.0f, 0.0f);
-                    GetComponent<BoxCollider>().center -= new Vector3(gorgeDimension * 0.05f, 0.0f, 0.0f);
-                }
                 rigidbody.constraints = RigidbodyConstraints.FreezeAll;
-                if (GetComponent<BoxCollider>().size.x >= gorgeDimension + 0.5f)
+                transform.localScale += new Vector3(gorgeDimension * 0.1f, 0.0f, 0.0f);
+                if (gorgeDirection == btdConstants.LEFT)
+                {
+                    transform.Translate(new Vector3(gorgeDimension / 2 * 0.1f, 0.0f, 0.0f));
+                }
+                else if (gorgeDirection == btdConstants.RIGHT)
+                {
+                    transform.Translate(new Vector3(-gorgeDimension / 2 * 0.1f, 0.0f, 0.0f));
+                }
+                if (transform.localScale.x >= gorgeDimension + 0.5f)
                 {
                     state = btdConstants.PULGA_ELASTIC_STRETCH_ON;
                     Debug.Log("Estirada");
@@ -68,27 +70,20 @@ public class btdPulgaElastic : MonoBehaviour
             else if (state == btdConstants.PULGA_ELASTIC_TO_WAIT)
             {
                 rigidbody.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionZ;
-                if (gorgeDirection == btdConstants.GORGE_LEFT)
+                transform.localScale -= new Vector3(gorgeDimension * 0.1f, 0.0f, 0.0f);
+                if (gorgeDirection == btdConstants.LEFT)
                 {
-                    GetComponent<BoxCollider>().size -= new Vector3(gorgeDimension * 0.1f, 0.0f, 0.0f);
-                    GetComponent<BoxCollider>().center -= new Vector3(gorgeDimension * 0.05f, 0.0f, 0.0f);
-                    transform.Translate(new Vector3(gorgeDimension * 0.1f, 0.0f, 0.0f));
-                    if (GetComponent<BoxCollider>().center == new Vector3(0.0f, 0.0f, 0.0f))
-                    {
-                        state = btdConstants.PULGA_ELASTIC_STRETCH;
-                        Debug.Log("Normalidad");
-                    }
+                    transform.Translate(new Vector3(gorgeDimension / 2 * 0.1f, 0.0f, 0.0f));
                 }
-                else if (gorgeDirection == btdConstants.GORGE_RIGHT)
+                else if (gorgeDirection == btdConstants.RIGHT)
                 {
-                    GetComponent<BoxCollider>().size -= new Vector3(gorgeDimension * 0.1f, 0.0f, 0.0f);
-                    GetComponent<BoxCollider>().center += new Vector3(gorgeDimension * 0.05f, 0.0f, 0.0f);
-                    transform.Translate(new Vector3(-gorgeDimension * 0.1f, 0.0f, 0.0f));
-                    if (GetComponent<BoxCollider>().center == new Vector3(0.0f, 0.0f, 0.0f))
-                    {
-                        state = btdConstants.PULGA_ELASTIC_STRETCH;
-                        Debug.Log("Normalidad");
-                    }
+                    transform.Translate(new Vector3(-gorgeDimension / 2 * 0.1f, 0.0f, 0.0f));
+                }
+                if (transform.localScale.x <= 1.0f)
+                {
+                    transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                    state = btdConstants.PULGA_ELASTIC_STRETCH;
+                    Debug.Log("Normalidad");
                 }
             }
         }
@@ -96,14 +91,31 @@ public class btdPulgaElastic : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "ground" && state == btdConstants.PULGA_JUMP)
+        if (other.tag == "ground")
         {
-            state = btdConstants.PULGA_WAIT;
+            if (state == btdConstants.PULGA_JUMP)
+            {
+                state = btdConstants.PULGA_WAIT;
+            }
+            else if (state == btdConstants.PULGA_ELASTIC_STRETCH_BUT_JUMPING)
+            {
+                state = btdConstants.PULGA_ELASTIC_STRETCH;
+                renderer.material.color = Color.yellow;
+            }
+            Debug.Log("Ground");
         }
-        else if (other.tag == "gorgeTrigger" && state != btdConstants.PULGA_JUMP)
+        else if (other.tag == "gorgeTrigger")
         {
+            if (state == btdConstants.PULGA_JUMP)
+            {
+                state = btdConstants.PULGA_ELASTIC_STRETCH_BUT_JUMPING;
+            }
+            else
+            {
+                state = btdConstants.PULGA_ELASTIC_STRETCH;
+                renderer.material.color = Color.yellow;
+            }
             gorgeDimension = other.GetComponent<BoxCollider>().size.x;
-            state = btdConstants.PULGA_ELASTIC_STRETCH;
         }
     }
 
@@ -111,7 +123,10 @@ public class btdPulgaElastic : MonoBehaviour
     {
         if (other.tag == "gorgeTrigger")
         {
-            state = btdConstants.PULGA_WAIT;
+            if (state != btdConstants.PULGA_JUMP)
+            {
+                state = btdConstants.PULGA_WAIT;
+            }
             renderer.material.color = Color.blue;
         }
     }
@@ -120,15 +135,11 @@ public class btdPulgaElastic : MonoBehaviour
     {
         if (other.tag == "gorgeLeft" && (state == btdConstants.PULGA_WAIT || state == btdConstants.PULGA_ELASTIC_STRETCH))
         {
-            gorgeDirection = btdConstants.GORGE_LEFT;
+            gorgeDirection = btdConstants.LEFT;
         }
         else if (other.tag == "gorgeRight" && (state == btdConstants.PULGA_WAIT || state == btdConstants.PULGA_ELASTIC_STRETCH))
         {
-            gorgeDirection = btdConstants.GORGE_RIGHT;
-        }
-        if (other.tag == "gorgeTrigger")
-        {
-            renderer.material.color = Color.yellow;
+            gorgeDirection = btdConstants.RIGHT;
         }
     }
 

@@ -5,25 +5,34 @@ public class btdPulgaForzuda : MonoBehaviour
 {
     public float movementSpeed;
     public float jumphight;
-    private bool jumping;
+
+    private int pullDirection;
+
+    public int state;
+    private int selected;
 
     // Use this for initialization
     void Start()
     {
-        movementSpeed = 5.0f;
-        jumphight = 300.0f;
-        jumping = false;
+        movementSpeed = btdConstants.MOVE_SPEED;
+        jumphight = btdConstants.JUMP_HIGHT;
+        rigidbody.mass = btdConstants.PULGA_MASS;
+        selected = btdConstants.PULGA_UNSELECTED;
+        state = btdConstants.PULGA_WAIT;
     }
 	
 	// Update is called once per frame
 	void Update ()
     {
-        float forward = Input.GetAxis("Horizontal") * movementSpeed * Time.deltaTime;
-        transform.Translate(Vector3.left * forward);
-        if (Input.GetKeyDown("space") && !jumping)
+        if (selected == btdConstants.PULGA_SELECTED)
         {
-            rigidbody.AddForce(Vector3.up * jumphight);
-            jumping = true;
+            float forward = Input.GetAxis("Horizontal") * movementSpeed * Time.deltaTime;
+            transform.Translate(Vector3.right * forward);
+            if (Input.GetKeyDown(KeyCode.Space) && state != btdConstants.PULGA_JUMP)
+            {
+                rigidbody.AddForce(Vector3.up * jumphight);
+                state = btdConstants.PULGA_JUMP;
+            }
         }
     }
 
@@ -31,11 +40,43 @@ public class btdPulgaForzuda : MonoBehaviour
     {
         if (other.tag == "ground")
         {
-            jumping = false;
+            if (state == btdConstants.PULGA_JUMP)
+            {
+                state = btdConstants.PULGA_WAIT;
+            }
+            else if (state == btdConstants.PULGA_FORZUDE_PULLUP_BUT_JUMPING)
+            {
+                state = btdConstants.PULGA_FORZUDE_PULLUP;
+                renderer.material.color = Color.yellow;
+            }
+            Debug.Log("Ground");
         }
-        else if (other.tag == "gorge")
+        else if (other.tag == "pullUpLeft")
         {
-            Debug.Log("In " + other.tag);
+            pullDirection = btdConstants.LEFT;
+            state = btdConstants.PULGA_FORZUDE_PULLUP;
+            renderer.material.color = Color.yellow;
+            Debug.Log("PullLeft");
         }
+        else if (other.tag == "pullUpRight")
+        {
+            pullDirection = btdConstants.RIGHT;
+            state = btdConstants.PULGA_FORZUDE_PULLUP;
+            renderer.material.color = Color.yellow;
+            Debug.Log("PullRight");
+        }
+    }
+
+    void OnTriggerExit(Collider other)
+    {
+        if (other.tag == "pullUpRight" || other.tag == "pullUpLeft")
+        {
+            renderer.material.color = Color.green;
+        }
+    }
+
+    public void setSelected(int _selected)
+    {
+        selected = _selected;
     }
 }

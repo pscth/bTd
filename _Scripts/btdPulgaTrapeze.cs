@@ -16,11 +16,12 @@ public class btdPulgaTrapeze : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        movementSpeed = 5.0f;
-        jumpHight = 25.0f;
-        jumpHightTrapeze = 50.0f;
-        rigidbody.mass = 0.1f;
+        movementSpeed = btdConstants.MOVE_SPEED;
+        jumpHight = btdConstants.JUMP_HIGHT;
+        jumpHightTrapeze = btdConstants.TRAPECE_JUMP_HIGHT;
+        rigidbody.mass = btdConstants.PULGA_MASS;
         selected = btdConstants.PULGA_UNSELECTED;
+        state = btdConstants.PULGA_WAIT;
     }
 	
 	// Update is called once per frame
