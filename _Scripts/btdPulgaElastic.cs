@@ -8,7 +8,7 @@ public class btdPulgaElastic : MonoBehaviour
 
     private float gorgeDimension;
     private int gorgeDirection;
-    public GameObject pullUp;
+    //public GameObject pullUp;
 
     public int state;
     private int selected;
@@ -26,7 +26,7 @@ public class btdPulgaElastic : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        pullUp.transform.position = transform.position;
+        //pullUp.transform.position = transform.position;
         if (selected == btdConstants.PULGA_SELECTED)
         {
             if (state != btdConstants.PULGA_ELASTIC_STRETCH_ON)
