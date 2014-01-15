@@ -21,19 +21,13 @@ static class btdConstants
 	public const int PULGA_FORZUDE_PULL = 2;
 	public const int PULGA_FORZUDE_DROP = 3;
 	public const int PULGA_FORZUDE_THROW = 4;
-	
-	
-	public const int PULGA_FORZUDE_ANGLE_NO_PULL = 0;	
-	public const int PULGA_FORZUDE_START_ANGLE_PULL = 90;
-	public const int PULGA_FORZUDE_FINAL_ANGLE_PULL = 180;
-	public const int PULGA_FORZUDE_INCREASE_PULL_ANGLE = 5;
-	
+    /*REVIEW TO DELETE*/
     public const int PULGA_FORZUDE_PULLUP = 2;
     public const int PULGA_FORZUDE_PULLUP_BUT_JUMPING = 3;
     public const int PULGA_FORZUDE_TO_PULLUP_ON = 4;
     public const int PULGA_FORZUDE_PULLUP_ON = 5;
-	public const int PULGA_FORZUDE_PULLUP_OFF = 6;
-
+    public const int PULGA_FORZUDE_PULLUP_OFF = 6;
+	
     //Common
     public const int PULGA_UNSELECTED = 0;
     public const int PULGA_SELECTED = 1;
@@ -44,13 +38,22 @@ static class btdConstants
     public const int RIGHT = 1;
 	public const int CENTER = 2;
     //Pulga number
-    public const int PULGA_TRAPEZE = 1;
-    public const int PULGA_ELASTIC = 2;
-    public const int PULGA_FORZUDE = 3;
+    public const int PULGA_FORZUDE = 1;
+    public const int PULGA_CLOWN = 2;
+    public const int PULGA_TRAPEZE = 3;
+    public const int PULGA_ELASTIC = 4;
+    public const int PULGA_FAQUIR = 5;
+    public const int PULGA_GROUP = 6;
 
     //Trapeze
     public const float TRAPEZE_FORCE = -1.0f;
     public const float TRAPECE_JUMP_HIGHT = 50.0f;
 
     //Elastic
+
+    //Forzude
+    public const int PULGA_FORZUDE_ANGLE_NO_PULL = 0;
+    public const int PULGA_FORZUDE_START_ANGLE_PULL = 90;
+    public const int PULGA_FORZUDE_FINAL_ANGLE_PULL = 180;
+    public const int PULGA_FORZUDE_INCREASE_PULL_ANGLE = 5;
 }

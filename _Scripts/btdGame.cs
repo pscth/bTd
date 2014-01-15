@@ -20,13 +20,24 @@ public class btdGame : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
+            Debug.Log("Forzude selected");
+            pulgaSelected = btdConstants.PULGA_FORZUDE;
+            pulgaElastic.GetComponent<btdPulgaElastic>().setSelected(btdConstants.PULGA_UNSELECTED);
+            pulgaTrapeze.GetComponent<btdPulgaTrapeze>().setSelected(btdConstants.PULGA_UNSELECTED);
+            pulgaForzude.GetComponent<btdPulgaForzuda>().setSelected(btdConstants.PULGA_SELECTED);
+        } 
+        else if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
             Debug.Log("Trapeze selected");
             pulgaSelected = btdConstants.PULGA_TRAPEZE;
             pulgaElastic.GetComponent<btdPulgaElastic>().setSelected(btdConstants.PULGA_UNSELECTED);
             pulgaTrapeze.GetComponent<btdPulgaTrapeze>().setSelected(btdConstants.PULGA_SELECTED);
             pulgaForzude.GetComponent<btdPulgaForzuda>().setSelected(btdConstants.PULGA_UNSELECTED);
         }
-        if (Input.GetKeyDown(KeyCode.Alpha2))
+        else if (Input.GetKeyDown(KeyCode.Alpha4))
         {
             Debug.Log("Elastic selected");
             pulgaSelected = btdConstants.PULGA_ELASTIC;
@@ -34,24 +45,29 @@ public class btdGame : MonoBehaviour
             pulgaTrapeze.GetComponent<btdPulgaTrapeze>().setSelected(btdConstants.PULGA_UNSELECTED);
             pulgaForzude.GetComponent<btdPulgaForzuda>().setSelected(btdConstants.PULGA_UNSELECTED);
         }
-        if (Input.GetKeyDown(KeyCode.Alpha3))
+        else if (Input.GetKeyDown(KeyCode.Alpha5))
         {
-            Debug.Log("Forzude selected");
-            pulgaSelected = btdConstants.PULGA_FORZUDE;
-            pulgaElastic.GetComponent<btdPulgaElastic>().setSelected(btdConstants.PULGA_UNSELECTED);
-            pulgaTrapeze.GetComponent<btdPulgaTrapeze>().setSelected(btdConstants.PULGA_UNSELECTED);
-            pulgaForzude.GetComponent<btdPulgaForzuda>().setSelected(btdConstants.PULGA_SELECTED);
         }
+        else if (Input.GetKeyDown(KeyCode.Alpha6))
+        {
+        }
+
         switch (pulgaSelected)
         {
-            case btdConstants.PULGA_ELASTIC:
-                mainCamera.transform.position = new Vector3(pulgaElastic.transform.position.x, mainCamera.transform.position.y, mainCamera.transform.position.z);
+            case btdConstants.PULGA_FORZUDE:
+                mainCamera.transform.position = new Vector3(pulgaForzude.transform.position.x, mainCamera.transform.position.y, mainCamera.transform.position.z);
+                break;
+            case btdConstants.PULGA_CLOWN:
                 break;
             case btdConstants.PULGA_TRAPEZE:
                 mainCamera.transform.position = new Vector3(pulgaTrapeze.transform.position.x, mainCamera.transform.position.y, mainCamera.transform.position.z);
                 break;
-            case btdConstants.PULGA_FORZUDE:
-                mainCamera.transform.position = new Vector3(pulgaForzude.transform.position.x, mainCamera.transform.position.y, mainCamera.transform.position.z);
+            case btdConstants.PULGA_ELASTIC:
+                mainCamera.transform.position = new Vector3(pulgaElastic.transform.position.x, mainCamera.transform.position.y, mainCamera.transform.position.z);
+                break;
+            case btdConstants.PULGA_FAQUIR:
+                break;
+            case btdConstants.PULGA_GROUP:
                 break;
         }
 	}

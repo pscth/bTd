@@ -8,7 +8,6 @@ public class btdPulgaElastic : MonoBehaviour
 
     private float gorgeDimension;
     private int gorgeDirection;
-    //public GameObject pullUp;
 
     public int state;
     private int selected;
@@ -26,7 +25,6 @@ public class btdPulgaElastic : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //pullUp.transform.position = transform.position;
         if (selected == btdConstants.PULGA_SELECTED)
         {
             if (state != btdConstants.PULGA_ELASTIC_STRETCH_ON)
@@ -34,12 +32,12 @@ public class btdPulgaElastic : MonoBehaviour
                 float forward = Input.GetAxis("Horizontal") * movementSpeed * Time.deltaTime;
                 transform.Translate(Vector3.right * forward);
             }
-            if (Input.GetKeyDown(KeyCode.Space) && state != btdConstants.PULGA_JUMP)
+            if (Input.GetButton("Jump") && state != btdConstants.PULGA_JUMP)
             {
                 rigidbody.AddForce(Vector3.up * jumpHight);
                 state = btdConstants.PULGA_JUMP;
             }
-            else if (Input.GetKeyDown(KeyCode.LeftControl) && state == btdConstants.PULGA_ELASTIC_STRETCH)
+            else if (Input.GetButton("Fire1") && state == btdConstants.PULGA_ELASTIC_STRETCH)
             {
                 Debug.Log("Estirar");
                 state = btdConstants.PULGA_ELASTIC_TO_STRETCH_ON;
@@ -62,7 +60,7 @@ public class btdPulgaElastic : MonoBehaviour
                     Debug.Log("Estirada");
                 }
             }
-            else if (Input.GetKeyDown(KeyCode.LeftControl) && state == btdConstants.PULGA_ELASTIC_STRETCH_ON)
+            else if (Input.GetButton("Fire1") && state == btdConstants.PULGA_ELASTIC_STRETCH_ON)
             {
                 Debug.Log("Volver a la normalidad");
                 state = btdConstants.PULGA_ELASTIC_TO_WAIT;

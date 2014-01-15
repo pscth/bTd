@@ -31,12 +31,12 @@ public class btdPulgaTrapeze : MonoBehaviour
         {
             float forward = Input.GetAxis("Horizontal") * movementSpeed * Time.deltaTime;
             transform.Translate(Vector3.right * forward);
-            if (Input.GetKeyDown(KeyCode.Space) && state != btdConstants.PULGA_JUMP)
+            if (Input.GetButton("Jump") && state != btdConstants.PULGA_JUMP)
             {
                 rigidbody.AddForce(Vector3.up * jumpHight);
                 state = btdConstants.PULGA_JUMP;
             }
-            else if (Input.GetKeyDown(KeyCode.LeftControl) && state == btdConstants.PULGA_TRAPEZE_JUMP)
+            else if (Input.GetButton("Fire1") && state == btdConstants.PULGA_TRAPEZE_JUMP)
             {
                 rigidbody.AddForce(Vector3.up * jumpHightTrapeze);
             }
