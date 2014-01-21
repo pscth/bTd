@@ -51,19 +51,18 @@ public class btdGame : MonoBehaviour
         else if (Input.GetKeyDown(KeyCode.Alpha6))
         {
         }
-
         switch (pulgaSelected)
         {
             case btdConstants.PULGA_FORZUDE:
-                mainCamera.transform.position = new Vector3(pulgaForzude.transform.position.x, mainCamera.transform.position.y, mainCamera.transform.position.z);
+                mainCamera.GetComponent<btdCamera>().newTarget(pulgaForzude);
                 break;
             case btdConstants.PULGA_CLOWN:
                 break;
             case btdConstants.PULGA_TRAPEZE:
-                mainCamera.transform.position = new Vector3(pulgaTrapeze.transform.position.x, mainCamera.transform.position.y, mainCamera.transform.position.z);
+                mainCamera.GetComponent<btdCamera>().newTarget(pulgaTrapeze);
                 break;
             case btdConstants.PULGA_ELASTIC:
-                mainCamera.transform.position = new Vector3(pulgaElastic.transform.position.x, mainCamera.transform.position.y, mainCamera.transform.position.z);
+                mainCamera.GetComponent<btdCamera>().newTarget(pulgaElastic);
                 break;
             case btdConstants.PULGA_FAQUIR:
                 break;
