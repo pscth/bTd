@@ -7,8 +7,8 @@ public class btdPulgaTrapeze : MonoBehaviour
     public float movementSpeed;
     public float movementSpeedTrapeze;
     public float jumpHight;
+    public float trapezeForce;
 
-    private Vector3 swingPosition;
     private GameObject swingObject;
 
     public int state;
@@ -23,6 +23,7 @@ public class btdPulgaTrapeze : MonoBehaviour
         rigidbody.mass = btdConstants.PULGA_MASS;
         selected = btdConstants.PULGA_UNSELECTED;
         state = btdConstants.PULGA_WAIT;
+        trapezeForce = btdConstants.TRAPEZE_FORCE;
     }
 	
 	// Update is called once per frame
@@ -62,13 +63,12 @@ public class btdPulgaTrapeze : MonoBehaviour
                     }
                     break;
                 case btdConstants.PULGA_TRAPEZE_EXTRA_JUMP:
-                    swingPosition = new Vector3(0.0f, 0.0f, 0.0f);
+                    swingObject = null;
                     break;
                 case btdConstants.PULGA_TRAPEZE_SWING:
-                    if (swingPosition.y >= transform.position.y)
+                    if (swingObject.transform.position.y >= transform.position.y)
                     {
-                        swingPosition = swingObject.transform.position;
-                        rigidbody.AddForce((transform.position - swingPosition) * btdConstants.TRAPEZE_FORCE * rigidbody.mass * (swingPosition.y - transform.position.y), ForceMode.Force);
+                        rigidbody.AddForce((transform.position - swingObject.transform.position) * trapezeForce * rigidbody.mass * (swingObject.transform.position.y - transform.position.y), ForceMode.Force);
                     }
                     if (Input.GetButtonDown("Jump"))
                     {
@@ -76,7 +76,7 @@ public class btdPulgaTrapeze : MonoBehaviour
                         movementSpeed = btdConstants.MOVE_SPEED;
                         rigidbody.AddForce(Vector3.up * jumpHight * 1.0f * rigidbody.mass, ForceMode.Impulse);
                     }
-                    transform.RotateAround(swingPosition, Vector3.forward, Input.GetAxis("Horizontal") * movementSpeedTrapeze * Time.deltaTime);
+                    transform.RotateAround(swingObject.transform.position, Vector3.forward, Input.GetAxis("Horizontal") * movementSpeedTrapeze * Time.deltaTime);
                     break;
             }
         }
@@ -90,10 +90,11 @@ public class btdPulgaTrapeze : MonoBehaviour
                 state = btdConstants.PULGA_WAIT;
                 break;
             case "trapezeSwing":
-                Debug.Log("Swing");
                 state = btdConstants.PULGA_TRAPEZE_SWING;
-                swingPosition = other.transform.position;
                 swingObject = other.gameObject;
+                trapezeForce = btdConstants.TRAPEZE_FORCE;
+                trapezeForce *= other.GetComponent<CapsuleCollider>().height; //Las dimensiones de collider definen la fuerza de atraccion
+                Debug.Log("Swing. Force = " + trapezeForce);
                 break;
         }
     }

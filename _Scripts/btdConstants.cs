@@ -50,7 +50,7 @@ static class btdConstants
     public const int PULGA_GROUP = 6;
 
     //Trapeze
-    public const float TRAPEZE_FORCE = -20.0f;
+    public const float TRAPEZE_FORCE = -25.0f;
     public const float TRAPEZE_MOVE_SPEED = 100.0f;
 
     //Elastic

@@ -19,8 +19,7 @@ public class btdGame : MonoBehaviour
         void Update () 
     {
         KeyboardSelectionMode();
-        GamePadSelecionMode();
-        Selection();
+        //GamePadSelecionMode();
     }
 
     void Selection()
@@ -77,11 +76,23 @@ public class btdGame : MonoBehaviour
 
     void KeyboardSelectionMode()
     {
-        if      (Input.GetKeyDown(KeyCode.Alpha1))          pulgaSelected = btdConstants.PULGA_FORZUDE;
-        else if (Input.GetKeyDown(KeyCode.Alpha2))          { }
-        else if (Input.GetKeyDown(KeyCode.Alpha3))          pulgaSelected = btdConstants.PULGA_TRAPEZE;
-        else if (Input.GetKeyDown(KeyCode.Alpha4))          pulgaSelected = btdConstants.PULGA_ELASTIC;
-        else if (Input.GetKeyDown(KeyCode.Alpha5))          { }
-        else if (Input.GetKeyDown(KeyCode.Alpha6))          { }
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            pulgaSelected = btdConstants.PULGA_FORZUDE;
+            Selection();
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha2)) { }
+        else if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            pulgaSelected = btdConstants.PULGA_TRAPEZE;
+            Selection();
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha4))
+        {
+            pulgaSelected = btdConstants.PULGA_ELASTIC;
+            Selection();
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha5)) { }
+        else if (Input.GetKeyDown(KeyCode.Alpha6)) { }
         }
 }
