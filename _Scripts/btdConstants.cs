@@ -19,18 +19,21 @@ static class btdConstants
     public const int PULGA_ELASTIC_CLIMB_RDY = 8;
     public const int PULGA_ELASTIC_CLIMBING = 9;
     //Forzude Pull states	
-	public const int PULGA_FORZUDE_NO_PULL = 0;
-	public const int PULGA_FORZUDE_PULLING = 1;
-	public const int PULGA_FORZUDE_PULL = 2;
-    public const int PULGA_FORZUDE_DROP = 3;
-    public const int PULGA_FORZUDE_HOLD_THROW = 4;
-    public const int PULGA_FORZUDE_THROW = 5;
+    public const int PULGA_FORZUDE_NO_PULL = 0;
+    public const int PULGA_FORZUDE_PULLING = 1;
+    public const int PULGA_FORZUDE_PULL = 2;
+    public const int PULGA_FORZUDE_PULLING_HEAVY = 3;
+    public const int PULGA_FORZUDE_PULL_HEAVY = 4;
+    public const int PULGA_FORZUDE_DROP = 5;
+    public const int PULGA_FORZUDE_HOLD_THROW = 6;
+    public const int PULGA_FORZUDE_THROW = 7;
+    public const int PULGA_FORZUDE_PUSHPULL = 8;
 		
-    public const int PULGA_FORZUDE_PULLUP = 2;
+    /*public const int PULGA_FORZUDE_PULLUP = 2;
     public const int PULGA_FORZUDE_PULLUP_BUT_JUMPING = 3;
     public const int PULGA_FORZUDE_TO_PULLUP_ON = 4;
     public const int PULGA_FORZUDE_PULLUP_ON = 5;
-	public const int PULGA_FORZUDE_PULLUP_OFF = 6;
+	public const int PULGA_FORZUDE_PULLUP_OFF = 6;*/
 
     //Common
     public const int PULGA_UNSELECTED = 0;
